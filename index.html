@@ -1,193 +1,193 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    
-    <title>가진세무사무소</title>
 
-    <!--css-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+  <title>가진세무사무소</title>
 
-    <!--javascript-->
+  <!--css-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-      <!--kakaotalk-->
-        <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
-          integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
-        <script>
-          Kakao.init('e2956d397218ebb041780141b7365877'); // 사용하려는 앱의 JavaScript 키 입력
-        </script>
+  <!--javascript-->
 
-      <!--axios-->
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!--kakaotalk-->
+  <!--kakaotalk-->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"></script>
+
+  <script>
+    Kakao.init('e2956d397218ebb041780141b7365877'); // 사용하려는 앱의 JavaScript 키 입력
+  </script>
+
+  <!--axios-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
-  
-    
-    
+
+
+
 <body>
 
-    <!--header-->
-    
-      <!-- 로그인 버튼 -->
-        <div class="d-flex justify-content-end pt-2 pr-4">
-          <a href="javascript:loginWithKakao()">
-            <button type="button" class="btn btn-primary mr-2">로그인</button>
-          </a>  
-          <p id="token-result"></p>
+  <!--header-->
 
-        <!--로그인 요청-->  
-          <script>
-           function loginWithKakao() {
-           //동의받기
-             Kakao.Auth.login({
-            success: function (authObj) {
-      // 백엔드 URL
-      const backendUrl = 'https://project1function.azurewebsites.net/api/login?code=b_kV4EMB012wWE-Suwa1sBbBiuRFbbG5IrnwJWCVOYLWAzFutUiajg==';
+  <!-- 로그인 버튼 -->
+  <div class="d-flex justify-content-end pt-2 pr-4">
+    <a href="javascript:loginWithKakao()">
+      <button type="button" class="btn btn-primary mr-2">로그인</button>
+    </a>
+    <p id="token-result"></p>
 
-      // 액세스 토큰
-      const accessToken = authObj.access_token;
+    <!--로그인 요청-->
+    <script>
+      function loginWithKakao() {
+        //동의받기
+        Kakao.Auth.login({
+          success: function (authObj) {
+            // 백엔드 URL
+            const backendUrl = 'https://project1function.azurewebsites.net/api/login?code=b_kV4EMB012wWE-Suwa1sBbBiuRFbbG5IrnwJWCVOYLWAzFutUiajg==';
 
-      // 백엔드에 요청을 보냅니다.
-      axios.post(backendUrl, { access_token: accessToken })
-        .then(response => {
-          const data = response.data;
-          // 요청이 성공한 경우, 응답 데이터를 처리합니다.
-          console.log('Success:', data);
-          document.getElementById("token-result").innerText = "로그인 성공";
-        })
-        .catch(error => {
-          // 요청이 실패한 경우, 오류를 처리합니다.
-          console.error('Error:', error);
-          document.getElementById("token-result").innerText = "로그인 실패";
+            // 액세스 토큰
+            const accessToken = authObj.access_token;
+
+            // 백엔드에 요청을 보냅니다.
+            axios.post(backendUrl, { access_token: accessToken })
+              .then(response => {
+                const data = response.data;
+                // 요청이 성공한 경우, 응답 데이터를 처리합니다.
+                console.log('Success:', data);
+                document.getElementById("token-result").innerText = "로그인 성공";
+              })
+              .catch(error => {
+                // 요청이 실패한 경우, 오류를 처리합니다.
+                console.error('Error:', error);
+                document.getElementById("token-result").innerText = "로그인 실패";
+              });
+          },
+          fail: function (err) {
+            console.error('로그인 실패:', err);
+          },
+          scope: 'account_email, openID', //추가항목 동의받기
+          nonce: '${nonce}'       // OpenId Connect ID 토큰 발급받기
         });
-    },
-    fail: function (err) {
-      console.error('로그인 실패:', err);
-    },
-    scope: 'account_email, openID', //추가항목 동의받기
-    nonce: '${nonce}'       // OpenId Connect ID 토큰 발급받기
-  });
-}
-
-            
-          </script>
+      }            
+    </script>
 
 
-      <!--회원가입 버튼-->  
-          <button type="button" class="btn btn-secondary">회원가입</button>
+    <!--회원가입 버튼-->
+    <button type="button" class="btn btn-secondary">회원가입</button>
+  </div>
+
+  <!-- 로고 -->
+  <header class="text-center pt-3">
+    <div class="container-lg border-bottom pb-3">
+      <h1 class="mb-2 mx-auto d-block">가진세무사무소</h1>
+    </div>
+  </header>
+
+
+  <!--main-->
+  <main class="mt-3">
+    <div class="container">
+      <div class="row">
+
+        <!--1번 버튼-->
+        <div class="col-4 mb-4">
+
+          <a href="login.html">
+            <h6 style="width: 100%; margin: o auto; text-align: center;">인건비</h6>
+          </a>
+
         </div>
 
-      <!-- 로고 -->
-        <header class="text-center pt-3">
-          <div class="container-lg border-bottom pb-3">
-            <h1 class="mb-2 mx-auto d-block">가진세무사무소</h1>
-          </div>
-        </header>
-    
+        <!--2번 버튼-->
+        <div class="col-4 mb-4">
 
-    <!--main-->    
-      <main class="mt-3">
-        <div class="container">
-          <div class="row">
-            
-            <!--1번 버튼-->
-            <div class="col-4 mb-4">
+          <h6 style="width: 100%; margin: o auto; text-align: center;">일용직</h6>
 
-                  <a href="login.html">
-                    <h6 style="width: 100%; margin: o auto; text-align: center;">인건비</h6>
-                  </a>
-                
-            </div>
+        </div>
 
-            <!--2번 버튼-->
-            <div class="col-4 mb-4">
-             
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">일용직</h6>
-                
-            </div>
+        <!--3번 버튼-->
+        <div class="col-4 mb-4">
 
-            <!--3번 버튼-->
-            <div class="col-4 mb-4">
+          <h6 style="width: 100%; margin: o auto; text-align: center;">사업/기타</h6>
 
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">사업/기타</h6>
-               
-            </div>
+        </div>
 
-            <!--4번 버튼-->
-            <div class="col-4 mb-4">
-              
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">입사/퇴사</h6>
-                
-            </div>
+        <!--4번 버튼-->
+        <div class="col-4 mb-4">
 
-            <!--5번 버튼-->
-            <div class="col-4 mb-4">
-              
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">계산서</h6>
-                
-            </div>
+          <h6 style="width: 100%; margin: o auto; text-align: center;">입사/퇴사</h6>
 
-            <!--6번 버튼-->
-            <div class="col-4 mb-4">
-              
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">종이 계산서</h6>
-                
-            </div>
+        </div>
 
-            <!--7번 버튼-->
-            <div class="col-4 mb-4">
-              
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">납부세액</h6>
-                
-            </div>
+        <!--5번 버튼-->
+        <div class="col-4 mb-4">
 
-            <!--8번 버튼-->
-            <div class="col-4 mb-4">
-              
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">예상세액</h6>
-                
-            </div>
+          <h6 style="width: 100%; margin: o auto; text-align: center;">계산서</h6>
 
-            <!--9번 버튼-->
-            <div class="col-4 mb-4">
-              
-                  <h6 style="width: 100%; margin: o auto; text-align: center;">재무제표</h6>
-                
-            </div>
-          </div>
-        </div> 
+        </div>
 
-        <div class="container-lg border-top pb-3"></div> 
-      </main>  
+        <!--6번 버튼-->
+        <div class="col-4 mb-4">
 
-  <!--footer-->
-    <footer class="bg-light py-3">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-            <p class="mb-1">주소: 경기도 성남시 분당구 동판교로 122 203-704</p>
-            <p class="mb-0">전화번호: 010-8833-5614</p>
-          </div>
-          <div class="col-md-6 d-flex align-items-center justify-content-center justify-content-md-end">
-            <a href="http://pf.kakao.com/_xbefcxj">
-              <img src="img/kakaoch.png" alt="Circle" height="50">
-            </a>  
-          </div>
+          <h6 style="width: 100%; margin: o auto; text-align: center;">종이 계산서</h6>
+
+        </div>
+
+        <!--7번 버튼-->
+        <div class="col-4 mb-4">
+
+          <h6 style="width: 100%; margin: o auto; text-align: center;">납부세액</h6>
+
+        </div>
+
+        <!--8번 버튼-->
+        <div class="col-4 mb-4">
+
+          <h6 style="width: 100%; margin: o auto; text-align: center;">예상세액</h6>
+
+        </div>
+
+        <!--9번 버튼-->
+        <div class="col-4 mb-4">
+
+          <h6 style="width: 100%; margin: o auto; text-align: center;">재무제표</h6>
+
         </div>
       </div>
-    </footer>
-
-    <div class="text-center mt-5">
-      <p>Copyright &copy; 2023 Your Company 
-        | Made with <i class="fas fa-heart"></i> by Your Name 
-        | Powered by <a href="https://getbootstrap.com/">Bootstrap</a></p>
     </div>
+
+    <div class="container-lg border-top pb-3"></div>
+  </main>
+
+  <!--footer-->
+  <footer class="bg-light py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+          <p class="mb-1">주소: 경기도 성남시 분당구 동판교로 122 203-704</p>
+          <p class="mb-0">전화번호: 010-8833-5614</p>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center justify-content-md-end">
+          <a href="http://pf.kakao.com/_xbefcxj">
+            <img src="img/kakaoch.png" alt="Circle" height="50">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="text-center mt-5">
+    <p>Copyright &copy; 2023 Your Company
+      | Made with <i class="fas fa-heart"></i> by Your Name
+      | Powered by <a href="https://getbootstrap.com/">Bootstrap</a></p>
+  </div>
 </body>
 
-    
+
 
 </html>
