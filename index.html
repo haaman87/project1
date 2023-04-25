@@ -47,7 +47,7 @@
     function loginWithKakao() {
       //동의받기
       Kakao.Auth.authorize({
-        success: function (authObj) {
+        successCallback: function (authObj) {
           // 백엔드 URL
           const backendUrl = 'https://project1function.azurewebsites.net/api/login?code=b_kV4EMB012wWE-Suwa1sBbBiuRFbbG5IrnwJWCVOYLWAzFutUiajg==';
 
@@ -68,7 +68,7 @@
               document.getElementById("token-result").innerText = "로그인 실패";
             });
         },
-        fail: function (err) {
+        failCallback: function (err) {
           console.error('로그인 실패:', err);
         },
         scope: 'account_email, openID', //추가항목 동의받기
