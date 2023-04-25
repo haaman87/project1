@@ -46,7 +46,7 @@
   <script>
     function loginWithKakao() {
       //동의받기
-      Kakao.Auth.login({
+      Kakao.Auth.authorize({
         success: function (authObj) {
           // 백엔드 URL
           const backendUrl = 'https://project1function.azurewebsites.net/api/login?code=b_kV4EMB012wWE-Suwa1sBbBiuRFbbG5IrnwJWCVOYLWAzFutUiajg==';
