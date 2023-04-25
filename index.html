@@ -20,7 +20,9 @@
           Kakao.init('e2956d397218ebb041780141b7365877'); // 사용하려는 앱의 JavaScript 키 입력
         </script>
 
-      
+      <!--axios-->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
   
@@ -39,16 +41,38 @@
 
         <!--로그인 요청-->  
           <script>
-            function loginWithKakao() {
+           function loginWithKakao() {
+           //동의받기
+             Kakao.Auth.login({
+            success: function (authObj) {
+      // 백엔드 URL
+      const backendUrl = 'https://project1function.azurewebsites.net/api/login?code=b_kV4EMB012wWE-Suwa1sBbBiuRFbbG5IrnwJWCVOYLWAzFutUiajg==';
 
-              //동의받기
-              Kakao.Auth.authorize({
-                redirectUri: 'https://lemon-beach-0b9ecb300.3.azurestaticapps.net/',
-                scope: 'account_email, openID', //추가항목 동의받기
-                nonce: '${nonce}'       // OpenId Connect ID 토큰 발급받기
-                
-               });
-            }
+      // 액세스 토큰
+      const accessToken = authObj.access_token;
+
+      // 백엔드에 요청을 보냅니다.
+      axios.post(backendUrl, { access_token: accessToken })
+        .then(response => {
+          const data = response.data;
+          // 요청이 성공한 경우, 응답 데이터를 처리합니다.
+          console.log('Success:', data);
+          document.getElementById("token-result").innerText = "로그인 성공";
+        })
+        .catch(error => {
+          // 요청이 실패한 경우, 오류를 처리합니다.
+          console.error('Error:', error);
+          document.getElementById("token-result").innerText = "로그인 실패";
+        });
+    },
+    fail: function (err) {
+      console.error('로그인 실패:', err);
+    },
+    scope: 'account_email, openID', //추가항목 동의받기
+    nonce: '${nonce}'       // OpenId Connect ID 토큰 발급받기
+  });
+}
+
             
           </script>
 
